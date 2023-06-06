@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+include("../helper/userClass.php");
 
 /*
 |--------------------------------------------------------------------------
@@ -13,25 +14,33 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-$hello = "hello";
-
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/user/{id}', function (string $id) {
+Route::get('/users/{id?}', function ($id = null) { // truy cập được /users/{id} & /users
     // Giả sử hệ thống có 5 user với id từ 1 đến 5
-    // thông tin bao gồm tên, email, số điện thoại, ...
-    $user1 = array("id" => 1, "name" => "Jack", "mail" => "jack99@gmail.com", "phone number" => "09999999999");
-    $user2 = array(2, "Noel", "noel.hudges@gmail.com", "09999669966");
-    $user3 = array(3, "York", "york-yoru@gmail.com", "099997777777");
-    $user4 = array(4, "Thorfinn", "thorfinn@gmail.com", "01689999999");
-    $user5 = array(5, "Luxiang", "Luxiang@gmail.com", "03869999565");
+    $users = array();
+    array_push(
+        $users, 
+        new User(1, "Martin", "king-martin@gmail.com", "09999669966"),
+        new User(2, "Daniel", "daniel007@gmail.com", "01685743333"),
+        new User(3, "Robert", "robert.watterson@gmail.com", "03869669966"),
+        new User(4, "Jack", "jack99@gmail.com", "0168450835"),
+        new User(5, "Olivia", "hero-olivia@gmail.com", "09999669966"),
+    );
 
-    dd($user1->id);
+    // [GET] /users/{id} - trả về thông tin 1 user
+    foreach ($users as $user) {
+        if ($user->id == $id) {
+            return view('user', ['users' => [$user]]);
+        }
+    }
 
-    return 'User '.$id;
-    // Regular Expression Constraint
+    // [GET] /users - trả về thông tin tất cả user
+    return view('user', ['users' => $users]);
+
+    // Regular Expression Constraint 
 })->where('id', '[0-9]+');
 
 
