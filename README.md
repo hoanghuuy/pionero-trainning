@@ -26,7 +26,7 @@ Viết 1 chương trình sử dụng Laravel thực hiện các việc sau:
   - Nếu truy cập url có dạng `/users` thì in ra danh sách thông tin của các users đang có
   - Sử dụng Views để hiển thị thông tin tương ứng. 
 ​
-Yêu cầu:
+#### Yêu cầu:
   - kiểm tra id có phải là số hay không (Route with Regular Expression Constraint)
   - chỉ dùng 1 khai báo Rout duy nhất, nhưng có thể truy cập được cả 2 dạng `/users/1` và `/users` đều hợp lệ
 ​
@@ -42,7 +42,7 @@ Viết 1 chương trình sử dụng Laravel thực hiện các việc sau:
   - Tạo model để tương tác với database
   - Triển khai các tính năng get, list, add, update, delete users sử dụng đầy đủ mô hình MVC
 ​
-Yêu cầu:
+#### Yêu cầu:
   - Sử dụng migrations để tạo bảng users.
 ​
 ### 3. Tuần 3
@@ -54,7 +54,7 @@ Viết 1 web server bằng Laravel thực hiện các việc sau:
   - Triển khai các tính năng get, list, add, update, delete users theo chuẩn Restful API 
   - tham khảo: https://learn.microsoft.com/en-us/azure/architecture/best-practices/api-design
 ​
-Yêu cầu:
+#### Yêu cầu:
   - Các method và status khi thành công/lỗi đúng theo chuẩn Restful API
 ​
 ### 4. Tuần 4
