@@ -23,6 +23,7 @@ Route::controller(UserController::class)->group(function () {
     Route::prefix('users')->group(function () {
         Route::get('/add', 'toAddPage');
         Route::post('/add', 'add');
+        Route::get('/{id?}', 'show')->where('id', '[0-9]+');
     });
 });
 

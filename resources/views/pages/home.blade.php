@@ -1,19 +1,27 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="row justify-content-center">
+    <div id="home-page" class="page row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+                <div class="card-header">Actions</div>
 
-                <div class="card-body">
+                <div class="card-body content">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
                         </div>
                     @endif
 
-                    {{ __('You are logged in!') }}
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Users
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="/users">List</a></li>
+                          <li><a class="dropdown-item" href="#">Add an user</a></li>
+                        </ul>
+                      </div>
                 </div>
             </div>
         </div>
