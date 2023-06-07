@@ -1,7 +1,18 @@
 @extends('layouts.app')
 
+@section('title', 'User list')
+
 @section('content')
     <div id="user-list-page" class="page">
+      {{-- breadcrumb --}}
+      <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">User List</li>
+          </ol>
+        </nav>
+
+      {{-- page title --}}
         <div class="title-page d-flex justify-content-between">
             <h1 class="title">User List</h1>
             <div class="sub-action">
@@ -11,6 +22,7 @@
             </div>
         </div>
 
+        {{-- page content --}}
         <div class="content-page">
           <table class="table">
             <thead>

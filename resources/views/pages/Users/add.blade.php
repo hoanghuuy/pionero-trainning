@@ -1,11 +1,24 @@
 @extends('layouts.app')
 
+@section('title', 'Add user')
+
 @section('content')
     <div class="add-user-page">
+        {{-- breadcrumb --}}
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="/users">User List</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Add</li>
+            </ol>
+          </nav>
+
+        {{-- page title --}}
         <div class="title-page">
             <h1>Add Users</h1>
         </div>
 
+        {{-- page content --}}
         <div class="content-page">
             <form method="POST" action="/users/add">
                 @csrf

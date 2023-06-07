@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Error')
+
 @section('content')
     <div id="error-page" class="page row justify-content-center">
         <div class="col-md-8">
