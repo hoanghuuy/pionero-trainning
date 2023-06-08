@@ -13,17 +13,17 @@ class UserController extends Controller
     public function show ($id = null) {
         // $id is null
         if (is_null($id)) {
-            $users = DB::table('users')->get();
+            $users = User::all();
     
             return view('pages/Users/list', ['users' => $users]);
         }
 
         // $id is not null
-        $user = DB::table('users')->where('id', $id)->get();
+        $user = User::find($id);
 
         // user is existed
-        if (count($user) === 1) {
-            return view('pages/Users/singleUser', ['user' => $user[0]]);
+        if (isset($user)) {
+            return view('pages/Users/singleUser', ['user' => $user]);
         }
 
         // user is not existed
@@ -38,18 +38,18 @@ class UserController extends Controller
 
     // [GET] /users/edit/{id}
     public function toEditPage ($id) {
-        $user = DB::table('users')->where('id', $id)->get();
+        $user = User::find($id);
 
-        return view('pages/Users/edit', ['user' => $user[0]]);
+        return view('pages/Users/edit', ['user' => $user]);
     }
     
     // [POST] /users/add
     public function add (Request $request) {
-        $user = new User();
-
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = $request->password;
+        $user = new User(array(    
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
+        ));
 
         $user->save();
 
@@ -58,25 +58,23 @@ class UserController extends Controller
 
     // [POST] /users/edit/{id}
     public function update (Request $request, $id) {
-        $updateObject = [];
-        $updateObject['name'] = $request->name;
-        $updateObject['email'] = $request->email;
-        if (!is_null($request->phoneNumber)) {
+        $updateObject = [
+            'name' => $request->name,
+            'email' => $request->email,
+        ];
+
+        if (isset($request->phoneNumber)) {
             $updateObject['phoneNumber'] = $request->phoneNumber;
         }
 
-        DB::table('users')
-            ->where('id', $id)
-            ->update($updateObject);
+        User::find($id)->update($updateObject);
             
         return redirect('users');
     }
 
     // [POST] /users/delete/{id}
     public function delete ($id) {
-        DB::table('users')
-            ->where('id', $id)
-            ->delete();
+        User::find($id)->delete();
             
         return redirect('users');
     }

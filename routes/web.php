@@ -16,22 +16,29 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Home
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+// User
+Route::controller(UserController::class)->prefix('users')->group(function () {
+    // GET
+    Route::get('/add', 'toAddPage');
+    Route::get('/', 'show');
 
-Route::controller(UserController::class)->group(function () {
-    Route::prefix('users')->group(function () {
-        // get
-        Route::get('/add', 'toAddPage');
-        Route::get('/edit/{id}', 'toEditPage');
-        Route::get('/{id?}', 'show')->where('id', '[0-9]+');
+    // POST
+    Route::post('/add', 'add');
 
-        // post
-        Route::post('/add', 'add');
-        Route::post('/edit/{id}', 'update');
-        Route::post('/delete/{id}', 'delete');
-    });
+    // Single User
+    Route::group(['prefix' => '{id}'], function() {
+        //GET
+        Route::get('/edit', 'toEditPage');
+        Route::get('/', 'show');
+
+        // POST
+        Route::post('/edit', 'update');
+        Route::post('/delete', 'delete');
+    })->where('id', '[0-9]+');
 });
 
-
+// Auth
 Auth::routes();

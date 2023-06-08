@@ -17,13 +17,13 @@
         <div class="title-page d-flex justify-content-between">
             <h1 class="title">User Information</h1>
             <div class="sub-action">
-              <a href="/users/edit/{{ $user->id }}">
+              <a href="/users/{{ $user->id }}/edit">
                 <button type="button" class="btn btn-secondary">
                   Edit user
                 </button>
               </a>
 
-              <form method="POST" action="/users/delete/{{ $user->id }}" class="d-inline-block">
+              <form method="POST" action="/users/{{ $user->id }}/delete" class="d-inline-block">
                 @csrf
                 <button type="submit" class="btn btn-danger">
                   Delete user
