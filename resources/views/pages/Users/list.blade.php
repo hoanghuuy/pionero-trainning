@@ -44,10 +44,10 @@
                   <td>{{ $user->email }}</td>
                   <td>{{ $user->phoneNumber }}</td>
                   <td class="text-center">
-                    <a href="/users/edit/{{ $user->id }}">
+                    <a href="/users/{{ $user->id }}/edit">
                       <button type="button" class="btn btn-warning">Edit</button>
                     </a>
-                    <form class="d-inline-block" method="POST" action="/users/delete/{{ $user->id }}">
+                    <form class="d-inline-block" method="POST" action="/users/{{ $user->id }}/delete">
                       @csrf
                       <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
