@@ -29,7 +29,7 @@ Route::controller(UserController::class)->prefix('users')->group(function () {
     Route::post('/add', 'add');
 
     // Single User
-    Route::group(['prefix' => '{id}'], function() {
+    Route::group(['prefix' => '{id}'], function($group) {
         //GET
         Route::get('/edit', 'toEditPage');
         Route::get('/', 'show');
@@ -37,7 +37,11 @@ Route::controller(UserController::class)->prefix('users')->group(function () {
         // POST
         Route::post('/edit', 'update');
         Route::post('/delete', 'delete');
-    })->where('id', '[0-9]+');
+
+        foreach($group->getRoutes() as $route){
+            $route->where('id', '[0-9]+');
+        }
+    });
 });
 
 // Auth
