@@ -15,7 +15,7 @@
 
         {{-- page title --}}
         <div class="title-page">
-            <h1>Add Users</h1>
+            <h1>Add User</h1>
         </div>
 
         {{-- page content --}}
@@ -23,7 +23,7 @@
             <form method="POST" action="/users/add">
                 @csrf
                 <div class="mb-3">
-                    <label for="inputName" class="form-label">Your name</label>
+                    <label for="inputName" class="form-label">Name</label>
                     <input type="text" class="form-control" id="inputName" name="name" placeholder="Enter name...">
                 </div>
                 <div class="mb-3">

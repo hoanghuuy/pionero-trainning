@@ -21,7 +21,7 @@
                         </button>
                         <ul class="dropdown-menu">
                           <li><a class="dropdown-item" href="/users">List</a></li>
-                          <li><a class="dropdown-item" href="#">Add an user</a></li>
+                          <li><a class="dropdown-item" href="/users/add">Add an user</a></li>
                         </ul>
                       </div>
                 </div>

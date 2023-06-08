@@ -21,9 +21,15 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::controller(UserController::class)->group(function () {
     Route::prefix('users')->group(function () {
+        // get
         Route::get('/add', 'toAddPage');
-        Route::post('/add', 'add');
+        Route::get('/edit/{id}', 'toEditPage');
         Route::get('/{id?}', 'show')->where('id', '[0-9]+');
+
+        // post
+        Route::post('/add', 'add');
+        Route::post('/edit/{id}', 'update');
+        Route::post('/delete/{id}', 'delete');
     });
 });
 

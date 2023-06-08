@@ -16,9 +16,11 @@
         <div class="title-page d-flex justify-content-between">
             <h1 class="title">User List</h1>
             <div class="sub-action">
+              <a href="/users/add">
                 <button type="button" class="btn btn-secondary">
-                  <a href="/users/add">Add user</a>
+                  Add user
                 </button>
+              </a>
             </div>
         </div>
 
@@ -42,8 +44,13 @@
                   <td>{{ $user->email }}</td>
                   <td>{{ $user->phoneNumber }}</td>
                   <td class="text-center">
-                    <button type="button" class="btn btn-warning">Edit</button>
-                    <button type="button" class="btn btn-danger">Delete</button>
+                    <a href="/users/edit/{{ $user->id }}">
+                      <button type="button" class="btn btn-warning">Edit</button>
+                    </a>
+                    <form class="d-inline-block" method="POST" action="/users/delete/{{ $user->id }}">
+                      @csrf
+                      <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
                   </td>
                 </tr>
               @endforeach

@@ -35,6 +35,13 @@ class UserController extends Controller
     public function toAddPage () {
         return view('pages/Users/add');
     }
+
+    // [GET] /users/edit/{id}
+    public function toEditPage ($id) {
+        $user = DB::table('users')->where('id', $id)->get();
+
+        return view('pages/Users/edit', ['user' => $user[0]]);
+    }
     
     // [POST] /users/add
     public function add (Request $request) {
@@ -46,18 +53,31 @@ class UserController extends Controller
 
         $user->save();
 
-        return view('pages/Users/add');
+        return redirect('users');
     }
 
-    // public function update (Request $request) {
-    //     $name = $request->name;
-    //     $email = $request->email;
-    //     $phoneNumber = $request->phoneNumber;
+    // [POST] /users/edit/{id}
+    public function update (Request $request, $id) {
+        $updateObject = [];
+        $updateObject['name'] = $request->name;
+        $updateObject['email'] = $request->email;
+        if (!is_null($request->phoneNumber)) {
+            $updateObject['phoneNumber'] = $request->phoneNumber;
+        }
 
-    //     DB::table('users')
-    //         ->where('id', Auth::id())
-    //         ->update(['name' => $name, 'email' => $email, 'phoneNumber' => $phoneNumber]);
+        DB::table('users')
+            ->where('id', $id)
+            ->update($updateObject);
             
-    //     return view('pages/Users/update');
-    // }
+        return redirect('users');
+    }
+
+    // [POST] /users/delete/{id}
+    public function delete ($id) {
+        DB::table('users')
+            ->where('id', $id)
+            ->delete();
+            
+        return redirect('users');
+    }
 }
