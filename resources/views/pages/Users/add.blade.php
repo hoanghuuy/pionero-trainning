@@ -20,7 +20,7 @@
 
         {{-- page content --}}
         <div class="content-page">
-            <form method="POST" action="/users/add">
+            <form method="POST" action="/users">
                 @csrf
                 <div class="mb-3">
                     <label for="inputName" class="form-label">Name</label>

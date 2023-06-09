@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Response;
 
 class UserController extends Controller
 {
@@ -14,8 +13,8 @@ class UserController extends Controller
         // $id is null
         if (is_null($id)) {
             $users = User::all();
-    
-            return view('pages/Users/list', ['users' => $users]);
+
+            return response()->json(['users' => $users, Response::HTTP_OK]);
         }
 
         // $id is not null
@@ -23,11 +22,12 @@ class UserController extends Controller
 
         // user is existed
         if (isset($user)) {
-            return view('pages/Users/singleUser', ['user' => $user]);
+
+            return response()->json(['user' => $user, Response::HTTP_OK]);
         }
 
         // user is not existed
-        return view('pages/error');
+            return response()->json(['message' => 'User Not Found', Response::HTTP_BAD_REQUEST]);
 
     }
 
@@ -43,7 +43,7 @@ class UserController extends Controller
         return view('pages/Users/edit', ['user' => $user]);
     }
     
-    // [POST] /users/add
+    // [POST] /users
     public function add (Request $request) {
         $user = new User(array(    
             'name' => $request->name,
@@ -53,10 +53,11 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect('users');
+        return response()->json(['message' => 'Create User Successfully', Response::HTTP_OK]);
+
     }
 
-    // [POST] /users/edit/{id}
+    // [PUT] /users/{id}
     public function update (Request $request, $id) {
         $updateObject = [
             'name' => $request->name,
@@ -69,13 +70,13 @@ class UserController extends Controller
 
         User::find($id)->update($updateObject);
             
-        return redirect('users');
+        return response()->json(['message' => 'Update User Successfully', Response::HTTP_OK]);
     }
 
-    // [POST] /users/delete/{id}
+    // [DELETE] /users/{id}
     public function delete ($id) {
-        User::find($id)->delete();
-            
-        return redirect('users');
+        User::find($id)->delete();        
+        
+        return response()->json(['message' => 'Delete User Successfully', Response::HTTP_OK]);
     }
 }

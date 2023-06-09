@@ -20,7 +20,8 @@
 
         {{-- page content --}}
         <div class="content-page">
-            <form method="POST" action="/users/{{ $user->id }}/edit">
+            <form method="POST" action="/users/{{ $user->id }}">
+                @method('PUT')
                 @csrf
                 <div class="mb-3">
                     <label for="inputName" class="form-label">Name</label>

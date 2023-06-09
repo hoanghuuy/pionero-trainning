@@ -47,7 +47,8 @@
                     <a href="/users/{{ $user->id }}/edit">
                       <button type="button" class="btn btn-warning">Edit</button>
                     </a>
-                    <form class="d-inline-block" method="POST" action="/users/{{ $user->id }}/delete">
+                    <form class="d-inline-block" method="POST" action="/users/{{ $user->id }}">
+                      @method('DELETE')
                       @csrf
                       <button type="submit" class="btn btn-danger">Delete</button>
                     </form>

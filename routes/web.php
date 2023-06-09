@@ -22,21 +22,23 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 // User
 Route::controller(UserController::class)->prefix('users')->group(function () {
     // GET
-    Route::get('/add', 'toAddPage');
+    Route::get('/add', 'toAddPage'); // go to add page
     Route::get('/', 'show');
 
     // POST
-    Route::post('/add', 'add');
+    Route::post('/', 'add');
 
     // Single User
     Route::group(['prefix' => '{id}'], function($group) {
         //GET
-        Route::get('/edit', 'toEditPage');
+        Route::get('/edit', 'toEditPage'); // go to edit page
         Route::get('/', 'show');
 
-        // POST
-        Route::post('/edit', 'update');
-        Route::post('/delete', 'delete');
+        // PUT
+        Route::put('/', 'update');
+
+        // DELETE
+        Route::delete('/', 'delete');
 
         foreach($group->getRoutes() as $route){
             $route->where('id', '[0-9]+');
