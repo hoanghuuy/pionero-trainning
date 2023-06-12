@@ -14,20 +14,19 @@ class UserController extends Controller
         if (is_null($id)) {
             $users = User::all();
 
-            return response()->json(['users' => $users, Response::HTTP_OK]);
+            return response()->json(['users' => $users, 'code' => Response::HTTP_OK]);
         }
 
         // $id is not null
-        $user = User::find($id);
+        try {
+            $user = User::findOrFail($id);
 
-        // user is existed
-        if (isset($user)) {
+            return response()->json(['user' => $user, 'code' => Response::HTTP_OK]);
+        } catch (\Exception $ex) {
+            $message = $ex->getMessage();
 
-            return response()->json(['user' => $user, Response::HTTP_OK]);
+            return response()->json(['error' => ['message' => $message, 'code' => Response::HTTP_BAD_REQUEST]]);
         }
-
-        // user is not existed
-            return response()->json(['message' => 'User Not Found', Response::HTTP_BAD_REQUEST]);
 
     }
 
@@ -38,14 +37,20 @@ class UserController extends Controller
 
     // [GET] /users/edit/{id}
     public function toEditPage ($id) {
-        $user = User::find($id);
+        try {
+            $user = User::findOrFail($id);
 
-        return view('pages/Users/edit', ['user' => $user]);
+            return view('pages/Users/edit', ['user' => $user]);
+        } catch (\Exception $ex) {
+
+            return view('pages/error');
+        }
     }
     
     // [POST] /users
     public function add (Request $request) {
-        $user = new User(array(    
+        try {
+            $user = new User(array(    
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password,
@@ -55,28 +60,49 @@ class UserController extends Controller
 
         return response()->json(['message' => 'Create User Successfully', Response::HTTP_OK]);
 
+        } catch (\Exception $ex) {
+            $message = $ex->getMessage();
+
+            return response()->json(['error' => ['message' => $message, 'code' => Response::HTTP_BAD_REQUEST]]);
+        }
+
     }
 
     // [PUT] /users/{id}
     public function update (Request $request, $id) {
-        $updateObject = [
-            'name' => $request->name,
-            'email' => $request->email,
-        ];
+        try {
+            $updateObject = [
+                'name' => $request->name,
+                'email' => $request->email,
+            ];
 
-        if (isset($request->phoneNumber)) {
-            $updateObject['phoneNumber'] = $request->phoneNumber;
+            if (isset($request->phoneNumber)) {
+                $updateObject['phoneNumber'] = $request->phoneNumber;
+            }
+
+            User::findOrFail($id)->update($updateObject);
+                
+            return response()->json(['message' => 'Update User Successfully', Response::HTTP_OK]);
+
+        } catch (\Exception $ex) {
+            $message = $ex->getMessage();
+
+            return response()->json(['error' => ['message' => $message, 'code' => Response::HTTP_BAD_REQUEST]]);
         }
-
-        User::find($id)->update($updateObject);
-            
-        return response()->json(['message' => 'Update User Successfully', Response::HTTP_OK]);
     }
 
     // [DELETE] /users/{id}
     public function delete ($id) {
-        User::find($id)->delete();        
-        
-        return response()->json(['message' => 'Delete User Successfully', Response::HTTP_OK]);
+        try {
+
+            User::findOrFail($id)->delete();  
+            
+            return response()->json(['message' => 'Delete User Successfully', Response::HTTP_OK]);
+
+        } catch (\Exception $ex) {
+            $message = $ex->getMessage();
+
+            return response()->json(['error' => ['message' => $message, 'code' => Response::HTTP_BAD_REQUEST]]);
+        }    
     }
 }
