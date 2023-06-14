@@ -6,10 +6,14 @@ use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+
     // [GET] /users/{id?}
     public function show($id = null) {
         try {
@@ -34,13 +38,11 @@ class UserController extends Controller
     // [POST] /users
     public function add(Request $request) {
         try {
-            $user = new User([
+            $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
-                'password' => Hash::make($request->password),
+                'password' => bcrypt($request->password),
             ]);
-
-            $user->save();
 
             return response()->json($user, Response::HTTP_CREATED);
 
@@ -52,11 +54,23 @@ class UserController extends Controller
     // [PUT] /users
     public function edit(Request $request, $id) {
         try {
-            $user = User::find($id)->update([
+            $user = User::findOrFail($id)->update([
                 'name' => $request->name,
                 'email' => $request->email,
                 'phoneNumber' => $request->phoneNumber,
             ]);
+
+            return response()->json($user, Response::HTTP_OK);
+
+        } catch (Exception $ex) {
+            return response()->json(['message' => $ex], Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+    // [PUT] /users
+    public function delete($id) {
+        try {
+            $user = User::findOrFail($id)->delete();
 
             return response()->json($user, Response::HTTP_OK);
 
