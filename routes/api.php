@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,17 +27,13 @@ Route::group([
 
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/login', [AuthController::class, 'login']);
-    
-    // Route::post('/logout', 'AuthController@logout');
-    // Route::post('/refresh', 'AuthController@refresh');
-    // Route::post('/me', 'AuthController@me');
 
 });
 
 // User
 Route::group([
 
-    'prefix' => 'users',
+    'prefix' => 'users',    
 
 ], function() {
     
