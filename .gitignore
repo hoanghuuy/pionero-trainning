@@ -17,3 +17,28 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/pionero-trainning-fe/node_modules
+/pionero-trainning-fe/.pnp
+/pionero-trainning-fe/.pnp.js
+
+# testing
+/pionero-trainning-fe//coverage
+
+# production
+/pionero-trainning-fe//build
+
+# misc
+/pionero-trainning-fe/.DS_Store
+/pionero-trainning-fe/.env.local
+/pionero-trainning-fe/.env.development.local
+/pionero-trainning-fe/.env.test.local
+/pionero-trainning-fe/.env.production.local
+
+/pionero-trainning-fe/npm-debug.log*
+/pionero-trainning-fe/yarn-debug.log*
+/pionero-trainning-fe/yarn-error.log*
+
