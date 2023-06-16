@@ -26,10 +26,10 @@ yarn-error.log
 /pionero-trainning-fe/.pnp.js
 
 # testing
-/pionero-trainning-fe//coverage
+/pionero-trainning-fe/coverage
 
 # production
-/pionero-trainning-fe//build
+/pionero-trainning-fe/build
 
 # misc
 /pionero-trainning-fe/.DS_Store
