@@ -65,7 +65,7 @@ class AuthController extends Controller
             }
 
             if(!$token = auth()->attempt($validator->validated())) {
-                return response()->json(['error' => 'Email or password is wrong'], Response::HTTP_UNAUTHORIZED);
+                return response()->json(['error' => 'Unauthorized'], Response::HTTP_UNAUTHORIZED);
             }
 
             return $this->createNewToken($token);
@@ -83,7 +83,7 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'type' => 'bearer',
-            'expires_in' => auth('api')->factory()->getTTL()*60*3,
+            'expires_in' => auth('api')->factory()->getTTL()*60,
             'user' => auth()->user(),
         ]);
     }
