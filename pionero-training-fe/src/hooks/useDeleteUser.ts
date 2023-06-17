@@ -1,7 +1,7 @@
 import route from "../constant/route";
 
 const useDeleteUser = () => {
-    const deleteUser = async (id) => {
+    const deleteUser = async (id: number) => {
         const requestOptions = {
             method: "DELETE",
             headers: {

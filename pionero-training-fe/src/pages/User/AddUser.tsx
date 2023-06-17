@@ -1,13 +1,19 @@
-import { Button, Form } from "react-bootstrap";
-import Layout from "../../layout";
 import { useState } from "react";
-import useAddUser from "../../hooks/useAddUser";
+import { Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import useAddUser from "../../hooks/useAddUser";
+import Layout from "../../layout";
+
+export interface UserAddI {
+    name: "";
+    email: "";
+    password: "";
+}
 
 function AddUser() {
     const navigate = useNavigate();
 
-    const [account, setAccount] = useState({
+    const [account, setAccount] = useState<UserAddI>({
         name: "",
         email: "",
         password: "",
@@ -15,14 +21,14 @@ function AddUser() {
 
     const { addUser } = useAddUser();
 
-    const handleChangeInput = (type, e) => {
+    const handleChangeInput = (type: "name" | "email" | "password", e: any) => {
         setAccount((prev) => {
             prev[type] = e.target.value;
             return { ...prev };
         });
     };
 
-    const submit = (e) => {
+    const submit = (e: any) => {
         e.preventDefault();
         addUser(account, navigate);
     };

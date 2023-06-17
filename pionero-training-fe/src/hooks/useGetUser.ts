@@ -1,27 +1,26 @@
 import route from "../constant/route";
 
-const useEditUser = () => {
-    const editUser = async (value, id, navigate) => {
+const useGetUser = () => {
+    const getUser = async (setUser: any, id: string) => {
         const requestOptions = {
-            method: "PUT",
+            method: "GET",
             headers: {
                 "Content-Type": "application/json",
                 Accept: "application/json",
                 Authorization: "Bearer " + localStorage.getItem("token"),
             },
-            body: JSON.stringify(value),
         };
 
         let result = await fetch(`${route.USERS}/${id}`, requestOptions)
             .then((response) => response.json())
             .then((json) => json);
 
-        await result;
+        result = await result;
 
-        navigate("/users");
+        setUser(result);
     };
 
-    return { editUser };
+    return { getUser };
 };
 
-export default useEditUser;
+export default useGetUser;

@@ -1,6 +1,6 @@
 import { Button, Card } from "react-bootstrap";
-import Layout from "../layout";
 import { Link } from "react-router-dom";
+import Layout from "../layout";
 
 export default function HomePage() {
     return (

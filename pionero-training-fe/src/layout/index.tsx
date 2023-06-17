@@ -1,8 +1,18 @@
 import { Button, Container } from "react-bootstrap";
 import Header from "./header";
 import { Link } from "react-router-dom";
+import React from "react";
 
-export default function Layout({ pageTitle, sideAction, children }) {
+interface Props {
+    pageTitle?: string;
+    sideAction?: {
+        url: string;
+        name: string;
+    };
+    children: string | JSX.Element;
+}
+
+export default function Layout({ pageTitle, sideAction, children }: Props) {
     return (
         <>
             <Header />

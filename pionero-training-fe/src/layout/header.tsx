@@ -2,12 +2,20 @@ import { useEffect, useRef } from "react";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
+import React from "react";
+
+export type User = {
+    id: number;
+    name: string;
+    email: string;
+    phoneNumber?: string;
+};
 
 function Header() {
-    const user = useRef(JSON.parse(localStorage.getItem("me")));
+    const user = useRef<User>(JSON.parse(localStorage.getItem("me") || "{}"));
 
     useEffect(() => {
-        user.current = JSON.parse(localStorage.getItem("me"));
+        user.current = JSON.parse(localStorage.getItem("me") || "{}");
     });
 
     return (
@@ -19,7 +27,7 @@ function Header() {
                     </Link>
 
                     <Navbar.Collapse className="justify-content-end">
-                        {!!user.current ? (
+                        {!!Object.keys(user.current).length ? (
                             <Navbar.Text>
                                 Signed in as:{" "}
                                 <Link

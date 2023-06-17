@@ -1,26 +1,28 @@
 import route from "../constant/route";
+import { UserAddI } from "../pages/User/AddUser";
 
-const useGetUsers = () => {
-    const getUsers = async (setUsers) => {
+const useAddUser = () => {
+    const addUser = async (value: UserAddI, navigate: any) => {
         const requestOptions = {
-            method: "GET",
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 Accept: "application/json",
                 Authorization: "Bearer " + localStorage.getItem("token"),
             },
+            body: JSON.stringify(value),
         };
 
         let result = await fetch(route.USERS, requestOptions)
             .then((response) => response.json())
             .then((json) => json);
 
-        result = await result;
+        await result;
 
-        setUsers(result);
+        navigate("/users");
     };
 
-    return { getUsers };
+    return { addUser };
 };
 
-export default useGetUsers;
+export default useAddUser;

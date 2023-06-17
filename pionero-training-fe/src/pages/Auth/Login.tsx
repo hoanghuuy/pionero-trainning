@@ -3,24 +3,29 @@ import { Button, Container, Form, Navbar } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import useLogin from "../../hooks/useLogin";
 
+export interface userLoginI {
+    email: "";
+    password: "";
+}
+
 function Login() {
     const navigate = useNavigate();
 
-    const [account, setAccount] = useState({
+    const [account, setAccount] = useState<userLoginI>({
         email: "",
         password: "",
     });
 
     const { login } = useLogin();
 
-    const handleChangeInput = (type, e) => {
+    const handleChangeInput = (type: "email" | "password", e: any) => {
         setAccount((prev) => {
             prev[type] = e.target.value;
             return { ...prev };
         });
     };
 
-    const submit = (e) => {
+    const submit = (e: any) => {
         e.preventDefault();
         login(account, navigate);
     };

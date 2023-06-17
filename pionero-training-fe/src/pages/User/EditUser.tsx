@@ -1,34 +1,47 @@
-import { Button, Form } from "react-bootstrap";
-import Layout from "../../layout";
 import { useEffect, useState } from "react";
+import { Button, Form } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
-import useGetUser from "../../hooks/useGetUser";
-import useEditUser from "../../hooks/useEditUser";
 import ManualSpinner from "../../components/ManualSpinner";
+import useEditUser from "../../hooks/useEditUser";
+import useGetUser from "../../hooks/useGetUser";
+import Layout from "../../layout";
+
+export interface userEditI {
+    name: "";
+    email: "";
+    phoneNumber: "";
+}
 
 function EditUser() {
     const { id } = useParams();
     const navigate = useNavigate();
 
-    const [user, setUser] = useState();
+    const [user, setUser] = useState<userEditI>({
+        name: "",
+        email: "",
+        phoneNumber: "",
+    });
 
     const { getUser } = useGetUser();
     const { editUser } = useEditUser();
 
-    const handleChangeInput = (type, e) => {
+    const handleChangeInput = (
+        type: "name" | "email" | "phoneNumber",
+        e: any
+    ) => {
         setUser((prev) => {
             prev[type] = e.target.value;
             return { ...prev };
         });
     };
 
-    const submit = (e) => {
+    const submit = (e: any) => {
         e.preventDefault();
-        editUser(user, id, navigate);
+        if (id) editUser(user, id, navigate);
     };
 
     useEffect(() => {
-        getUser(setUser, id);
+        if (id) getUser(setUser, id);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -72,7 +85,9 @@ function EditUser() {
                         Submit
                     </Button>
                 </Form>
-            ) : <ManualSpinner />}
+            ) : (
+                <ManualSpinner />
+            )}
         </Layout>
     );
 }

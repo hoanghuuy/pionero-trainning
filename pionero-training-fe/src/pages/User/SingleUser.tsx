@@ -1,19 +1,25 @@
-import { Col, Row } from "react-bootstrap";
-import Layout from "../../layout";
-import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import useGetUser from "../../hooks/useGetUser";
+import { Col, Row } from "react-bootstrap";
+import { useParams } from "react-router-dom";
 import ManualSpinner from "../../components/ManualSpinner";
+import useGetUser from "../../hooks/useGetUser";
+import Layout from "../../layout";
+
+interface User {
+    name: string;
+    email: string;
+    phoneNumber: string;
+}
 
 function SingleUser() {
     const { id } = useParams();
 
-    const [user, setUser] = useState();
+    const [user, setUser] = useState<User | undefined>();
 
     const { getUser } = useGetUser();
 
     useEffect(() => {
-        getUser(setUser, id);
+        if (id) getUser(setUser, id);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

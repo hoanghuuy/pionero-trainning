@@ -1,7 +1,8 @@
 import route from "../constant/route";
+import { userLoginI } from "../pages/Auth/Login";
 
 const useLogin = () => {
-    const login = async (value, navigate) => {
+    const login = async (value: userLoginI, navigate: any) => {
         const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" },

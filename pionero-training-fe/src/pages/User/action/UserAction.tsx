@@ -3,8 +3,14 @@ import "./style.css";
 import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import useDeleteUser from "../../../hooks/useDeleteUser";
+import React from "react";
 
-export default function UserAction({ id, setRenderUserList }) {
+interface Props {
+    id: number;
+    setRenderUserList: React.Dispatch<React.SetStateAction<number>>;
+}
+
+export default function UserAction({ id, setRenderUserList }: Props) {
     const [show, setShow] = useState(false);
 
     const { deleteUser } = useDeleteUser();

@@ -1,14 +1,15 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ManualSpinner from "../../components/ManualSpinner";
 import useGetUsers from "../../hooks/useGetUsers";
 import Layout from "../../layout";
+import { User } from "../../layout/header";
 import UserAction from "./action/UserAction";
 
 function UserList() {
-    const [users, setUsers] = useState([]);
-    const [renderUserList, setRenderUserList] = useState(0);
+    const [users, setUsers] = useState<User[]>([]);
+    const [renderUserList, setRenderUserList] = useState<number>(0);
 
     const { getUsers } = useGetUsers();
 
