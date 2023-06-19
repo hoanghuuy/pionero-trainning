@@ -85,6 +85,6 @@ class AuthController extends Controller
             'type' => 'bearer',
             'expires_in' => auth('api')->factory()->getTTL()*60,
             'user' => auth()->user(),
-        ]);
+        ], Response::HTTP_OK);
     }
 }

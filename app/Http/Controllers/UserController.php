@@ -60,7 +60,7 @@ class UserController extends Controller
                 'phoneNumber' => $request->phoneNumber,
             ]);
 
-            return response()->json($user, Response::HTTP_OK);
+            return response()->json(['message' => 'Edit user successfully'], Response::HTTP_OK);
 
         } catch (Exception $ex) {
             return response()->json(['message' => $ex], Response::HTTP_BAD_REQUEST);
@@ -72,7 +72,7 @@ class UserController extends Controller
         try {
             $user = User::findOrFail($id)->delete();
 
-            return response()->json($user, Response::HTTP_OK);
+            return response()->json(['message' => 'Delete user successfully'], Response::HTTP_OK);
 
         } catch (Exception $ex) {
             return response()->json(['message' => $ex], Response::HTTP_BAD_REQUEST);
